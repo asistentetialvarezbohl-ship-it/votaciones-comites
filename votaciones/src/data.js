@@ -7,6 +7,7 @@ export const EMPRESAS = {
   "Empresa Punto Blanco":  ["PIURA", "TUMBES"],
   "Empresa Megamarcas": ["PIURA"],
   "Empresa Farmivent": ["PIURA"],
+  "Empresa FarmiGab": ["PIURA"],
   "Empresa Inmobiliaria Las Cumbres": ["PIURA"],
 };
 
@@ -40,7 +41,7 @@ export const CANDIDATOS_POR_SEDE = {
     hostigamiento: [ {id:"h-al-ch-1", nombre:"Jackeline Ore Huanca",  cargo:"Titular",  ini:"JO"}, {id:"h-al-ch-2", nombre:"Dario Villanueva Sol",   cargo:"Titular",  ini:"DV"}, {id:"h-al-ch-3", nombre:"Susana Inca Choquecc",  cargo:"Suplente", ini:"SI"}, {id:"h-al-ch-4", nombre:"Wilmer Flores Boza",    cargo:"Suplente", ini:"WF"} ],
   },
   "Empresa Punto Blanco|PIURA": {
-    seguridad:     [ {id:"s-be-sp-1", nombre:"ANDRADE LEON, MARCO ANTONIO",   cargo:"Titular",  ini:"AL"}, {id:"s-be-sp-2", nombre:"KARINA CHERO VERAMATUS ",    cargo:"Titular",  ini:"KC"}, {id:"s-be-sp-3", nombre:"PATRICIA ISABEL FERREYRA OLIVARES",    cargo:"Titular", ini:"PI"}, {id:"s-be-sp-4", nombre:"RUDY VERENIZE GIL MARTINEZ",     cargo:"Suplente", ini:"PR"}, {id:"s-be-sp-4", nombre:"JULIO HUACCHA QUIROZ",     cargo:"Suplente", ini:"JH"}, {id:"s-be-sp-4", nombre:"ALIDA VANESSA MENDIOLA CARVALLO ",     cargo:"Suplente", ini:"AV"} ],
+    seguridad:     [ {id:"s-be-sp-1", nombre:"ANDRADE LEON, MARCO ANTONIO",   cargo:"Titular",  ini:"AL"}, {id:"s-be-sp-2", nombre:"KARINA CHERO VERAMATUS ",    cargo:"Titular",  ini:"KC"}, {id:"s-be-sp-3", nombre:"PATRICIA ISABEL FERREYRA OLIVARES",    cargo:"Titular", ini:"PI"}, {id:"s-be-sp-4", nombre:"RUDY VERENIZE GIL MARTINEZ",     cargo:""Titular"", ini:"PR"}, {id:"s-be-sp-4", nombre:"JULIO HUACCHA QUIROZ",     cargo:""Titular"", ini:"JH"}, {id:"s-be-sp-4", nombre:"ALIDA VANESSA MENDIOLA CARVALLO ",     cargo:"Suplente", ini:"AV"} ],
     hostigamiento: [ {id:"h-be-sp-1", nombre:"Vanesa Merino Tello",   cargo:"Titular",  ini:"VM"}, {id:"h-be-sp-2", nombre:"Cristian Barreto Aza",   cargo:"Titular",  ini:"CB"}, {id:"h-be-sp-3", nombre:"Gabriela Pino Saico",   cargo:"Suplente", ini:"GS"}, {id:"h-be-sp-4", nombre:"Alberto Turpo Lazo",    cargo:"Suplente", ini:"AL"} ],
   },
   "Empresa Punto Blanco|TUMBES": {
