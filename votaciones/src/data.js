@@ -11,8 +11,8 @@ export const EMPRESAS = {
 };
 
 export const CANDIDATOS_POR_SEDE = {
-  "Empresa Alpha|Central Lima": {
-    seguridad:     [ {id:"s-al-cl-1", nombre:"Carlos Mendoza Ríos",   cargo:"Titular",  ini:"CM"}, {id:"s-al-cl-2", nombre:"Ana Lucía Torres",     cargo:"Titular",  ini:"AT"}, {id:"s-al-cl-3", nombre:"Roberto Sánchez Díaz",  cargo:"Suplente", ini:"RS"}, {id:"s-al-cl-4", nombre:"María Fernández Ruiz",  cargo:"Suplente", ini:"MF"} ],
+  "Empresa Alvarez Bohl|PIURA": {
+    seguridad:     [ {id:"s-al-cl-1", nombre:"ADRIANZEN PULACHE DIEGO ALONSO",   cargo:"Titular",  ini:"AP"}, {id:"s-al-cl-2", nombre:"ALAYO MIÑAN JEAN PAUL",     cargo:"Titular",  ini:"AM"}, {id:"s-al-cl-3", nombre:"FERNANDO CASANOVA QUINTANA",  cargo:"Titular", ini:"FC"}, {id:"s-al-cl-4", nombre:"SOFIA ELIZABETH HUANCAS CORREA",  cargo:"Titular", ini:"SE"}, {id:"s-al-cl-4", nombre:"MADELEINE JANET MIÑAN CHUMO",  cargo:"Titular", ini:"SE"}, {id:"s-al-cl-4", nombre:"VICTOR ALFREDO SANDOVAL SULLON",  cargo:"Titular", ini:"SE"} ],
     hostigamiento: [ {id:"h-al-cl-1", nombre:"Lucía Vargas Peña",     cargo:"Titular",  ini:"LV"}, {id:"h-al-cl-2", nombre:"Jorge Huamán Cruz",     cargo:"Titular",  ini:"JH"}, {id:"h-al-cl-3", nombre:"Patricia Quispe Vera",  cargo:"Suplente", ini:"PQ"}, {id:"h-al-cl-4", nombre:"Eduardo Ramos León",    cargo:"Suplente", ini:"ER"} ],
   },
   "Empresa Alpha|Miraflores": {
