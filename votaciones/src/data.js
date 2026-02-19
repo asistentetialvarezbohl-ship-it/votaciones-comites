@@ -39,11 +39,11 @@ export const CANDIDATOS_POR_SEDE = {
     seguridad:     [ {id:"s-al-ch-1", nombre:"Marisol Ticona Llana",  cargo:"Titular",  ini:"MT"}, {id:"s-al-ch-2", nombre:"Ángel Quiñones Paz",     cargo:"Titular",  ini:"AQ"}, {id:"s-al-ch-3", nombre:"Flor Ccasa Apaza",      cargo:"Suplente", ini:"FA"}, {id:"s-al-ch-4", nombre:"Yuri Tapia Mamani",     cargo:"Suplente", ini:"YT"} ],
     hostigamiento: [ {id:"h-al-ch-1", nombre:"Jackeline Ore Huanca",  cargo:"Titular",  ini:"JO"}, {id:"h-al-ch-2", nombre:"Dario Villanueva Sol",   cargo:"Titular",  ini:"DV"}, {id:"h-al-ch-3", nombre:"Susana Inca Choquecc",  cargo:"Suplente", ini:"SI"}, {id:"h-al-ch-4", nombre:"Wilmer Flores Boza",    cargo:"Suplente", ini:"WF"} ],
   },
-  "Empresa Beta|Sede Principal": {
-    seguridad:     [ {id:"s-be-sp-1", nombre:"Javier Quispe Llave",   cargo:"Titular",  ini:"JQ"}, {id:"s-be-sp-2", nombre:"Stephanie Polo Vega",    cargo:"Titular",  ini:"SV"}, {id:"s-be-sp-3", nombre:"Nelson Arroyo Cano",    cargo:"Suplente", ini:"NA"}, {id:"s-be-sp-4", nombre:"Pamela Rojas Cusi",     cargo:"Suplente", ini:"PR"} ],
+  "Empresa Punto Blanco|PIURA": {
+    seguridad:     [ {id:"s-be-sp-1", nombre:"ANDRADE LEON, MARCO ANTONIO",   cargo:"Titular",  ini:"AL"}, {id:"s-be-sp-2", nombre:"KARINA CHERO VERAMATUS ",    cargo:"Titular",  ini:"KC"}, {id:"s-be-sp-3", nombre:"PATRICIA ISABEL FERREYRA OLIVARES",    cargo:"Titular", ini:"PI"}, {id:"s-be-sp-4", nombre:"RUDY VERENIZE GIL MARTINEZ",     cargo:"Suplente", ini:"PR"}, {id:"s-be-sp-4", nombre:"JULIO HUACCHA QUIROZ",     cargo:"Suplente", ini:"JH"}, {id:"s-be-sp-4", nombre:"ALIDA VANESSA MENDIOLA CARVALLO ",     cargo:"Suplente", ini:"AV"} ],
     hostigamiento: [ {id:"h-be-sp-1", nombre:"Vanesa Merino Tello",   cargo:"Titular",  ini:"VM"}, {id:"h-be-sp-2", nombre:"Cristian Barreto Aza",   cargo:"Titular",  ini:"CB"}, {id:"h-be-sp-3", nombre:"Gabriela Pino Saico",   cargo:"Suplente", ini:"GS"}, {id:"h-be-sp-4", nombre:"Alberto Turpo Lazo",    cargo:"Suplente", ini:"AL"} ],
   },
-  "Empresa Beta|Sucursal Norte": {
+  "Empresa Punto Blanco|TUMBES": {
     seguridad:     [ {id:"s-be-sn-1", nombre:"Margarita Rosas Aldea", cargo:"Titular",  ini:"MR"}, {id:"s-be-sn-2", nombre:"Kevin Ccori Ttito",       cargo:"Titular",  ini:"KC"}, {id:"s-be-sn-3", nombre:"Lorena Atahua Pilco",   cargo:"Suplente", ini:"LO"}, {id:"s-be-sn-4", nombre:"Roberto Huanca Suri",   cargo:"Suplente", ini:"RH"} ],
     hostigamiento: [ {id:"h-be-sn-1", nombre:"Tatiana Sucari Yana",   cargo:"Titular",  ini:"TS"}, {id:"h-be-sn-2", nombre:"Marco Calcina Pinto",     cargo:"Titular",  ini:"MC"}, {id:"h-be-sn-3", nombre:"Silvia Coyla Masco",     cargo:"Suplente", ini:"SC"}, {id:"h-be-sn-4", nombre:"Henry Condori Zarate",   cargo:"Suplente", ini:"HZ"} ],
   },
