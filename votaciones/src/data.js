@@ -3,9 +3,11 @@
 // ═══════════════════════════════════════════════════════════════════
 
 export const EMPRESAS = {
-  "Empresa Alpha": ["Central Lima", "Miraflores", "San Isidro", "Surco", "Callao", "San Borja", "Chorrillos"],
-  "Empresa Beta":  ["Sede Principal", "Sucursal Norte"],
-  "Empresa Gamma": ["Oficina Central", "Planta Industrial"],
+  "Empresa Alvarez Bohl": ["PIURA", "TUMBES", "TRUJILLO", "CHIMBOTE", "CHICLAYO", "CAJAMARCA", "HUAMACHUCO"],
+  "Empresa Punto Blanco":  ["PIURA", "TUMBES"],
+  "Empresa Megamarcas": ["PIURA"],
+  "Empresa Farmivent": ["PIURA"],
+  "Empresa Inmobiliaria Las Cumbres": ["PIURA"],
 };
 
 export const CANDIDATOS_POR_SEDE = {
