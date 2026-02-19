@@ -60,12 +60,11 @@ export const CANDIDATOS_POR_SEDE = {
     seguridad:     [ {id:"s-ga-pi-1", nombre:"Brenda Cárdenas Anco",  cargo:"Titular",  ini:"BC"}, {id:"s-ga-pi-2", nombre:"Leandro Cutipa Tito",     cargo:"Titular",  ini:"LC"}, {id:"s-ga-pi-3", nombre:"Yessenia Chura Cusi",    cargo:"Suplente", ini:"YC"}, {id:"s-ga-pi-4", nombre:"Nilton Hancco Huanca",   cargo:"Suplente", ini:"NH"} ],
     hostigamiento: [ {id:"h-ga-pi-1", nombre:"Cinthia Ticona Mamani", cargo:"Titular",  ini:"CT"}, {id:"h-ga-pi-2", nombre:"Jhon Colque Apaza",       cargo:"Titular",  ini:"JC"}, {id:"h-ga-pi-3", nombre:"Mirella Cusi Quispe",    cargo:"Suplente", ini:"MQ"}, {id:"h-ga-pi-4", nombre:"Remy Layme Tarqui",      cargo:"Suplente", ini:"RL"} ],
   },
-   "mpresa Inmobiliaria Las Cumbres|PIURA": {
+   "Empresa Inmobiliaria Las Cumbres|PIURA": {
     seguridad:     [ {id:"s-ga-pi-1", nombre:"Brenda Cárdenas Anco",  cargo:"Titular",  ini:"BC"}, {id:"s-ga-pi-2", nombre:"Leandro Cutipa Tito",     cargo:"Titular",  ini:"LC"}, {id:"s-ga-pi-3", nombre:"Yessenia Chura Cusi",    cargo:"Suplente", ini:"YC"}, {id:"s-ga-pi-4", nombre:"Nilton Hancco Huanca",   cargo:"Suplente", ini:"NH"} ],
     hostigamiento: [ {id:"h-ga-pi-1", nombre:"Cinthia Ticona Mamani", cargo:"Titular",  ini:"CT"}, {id:"h-ga-pi-2", nombre:"Jhon Colque Apaza",       cargo:"Titular",  ini:"JC"}, {id:"h-ga-pi-3", nombre:"Mirella Cusi Quispe",    cargo:"Suplente", ini:"MQ"}, {id:"h-ga-pi-4", nombre:"Remy Layme Tarqui",      cargo:"Suplente", ini:"RL"} ],
   },
 };
-
 export const PALETA = ["#2563EB","#7C3AED","#DB2777","#059669","#D97706","#DC2626","#0891B2","#65A30D","#9333EA","#0284C7"];
 
 export function colorAvatar(str) {
