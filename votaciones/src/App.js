@@ -334,11 +334,12 @@ function AdminPanel({ onClose }) {
 // ═══════════════════════════════════════════════════════════════════════════════
 export default function App() {
   // Sesión de sede (encargado)
-  const [sedeActiva, setSedeActiva]         = useState(null); // sede seleccionada
-  const [nombreEnc, setNombreEnc]           = useState('');
-  const [dniEnc, setDniEnc]                 = useState('');
-  const [errorEnc, setErrorEnc]             = useState('');
-  const [loadingEnc, setLoadingEnc]         = useState(false);
+  const [sedeSeleccionada, setSedeSeleccionada] = useState('');  // select UI solamente
+  const [sedeActiva, setSedeActiva]             = useState(null);  // activa SOLO tras validar
+  const [nombreEnc, setNombreEnc]               = useState('');
+  const [dniEnc, setDniEnc]                     = useState('');
+  const [errorEnc, setErrorEnc]                 = useState('');
+  const [loadingEnc, setLoadingEnc]             = useState(false);
 
   // Votación
   const [paso, setPaso]         = useState(0); // 0=elegir empresa, 1=votar, 2=confirmado
@@ -362,13 +363,14 @@ export default function App() {
   // ── Encargado abre sesión ──
   async function handleAbrirSesion() {
     const nom = nombreEnc.trim(), dniT = dniEnc.trim();
-    if (!nom || !dniT || !sedeActiva) { setErrorEnc('Completa todos los campos.'); return; }
+    if (!nom || !dniT || !sedeSeleccionada) { setErrorEnc('Completa todos los campos.'); return; }
     if (!/^\d{8}$/.test(dniT)) { setErrorEnc('El DNI debe tener 8 dígitos.'); return; }
     setLoadingEnc(true);
-    const { error: err } = await supabase.from('encargados').insert([{ nombre: nom, dni: dniT, sede: sedeActiva }]);
+    const { error: err } = await supabase.from('encargados').insert([{ nombre: nom, dni: dniT, sede: sedeSeleccionada }]);
     if (err) { setErrorEnc('Error al registrar: ' + err.message); setLoadingEnc(false); return; }
     setLoadingEnc(false);
-    setPaso(0); // listo para recibir votantes
+    setSedeActiva(sedeSeleccionada); // AHORA sí activa la sesión
+    setPaso(0);
   }
 
   // ── Confirmar empresa y pasar a votar ──
@@ -432,7 +434,7 @@ export default function App() {
             <div style={{ background:'rgba(255,255,255,0.02)', border:'1px solid rgba(255,255,255,0.07)', borderRadius:24, padding:30, display:'flex', flexDirection:'column', gap:17 }}>
               <div>
                 <label style={{ fontSize:11.5, color:'#475569', display:'block', marginBottom:7, fontWeight:700, letterSpacing:0.4 }}>SEDE</label>
-                <select style={{ ...inp, cursor:'pointer' }} value={sedeActiva||''} onChange={e => setSedeActiva(e.target.value||null)}>
+                <select style={{ ...inp, cursor:'pointer' }} value={sedeSeleccionada} onChange={e => { setSedeSeleccionada(e.target.value); setErrorEnc(''); }}>
                   <option value="">Selecciona la sede</option>
                   {Object.keys(SEDES).map(s => <option key={s} value={s}>{s}</option>)}
                 </select>
