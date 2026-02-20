@@ -1,29 +1,23 @@
 // ═══════════════════════════════════════════════════════════════════
-// DATOS — Empresas, Sedes y Candidatos
-// Los candidatos son los MISMOS para todas las sedes de cada empresa
-// La sede solo se registra para el conteo de participación
+// SEDES y qué empresas existen en cada una
 // ═══════════════════════════════════════════════════════════════════
-
-export const EMPRESAS = {
-  "Alvarez Bohl":             ["PIURA", "TUMBES", "TRUJILLO", "CHIMBOTE", "CHICLAYO", "CAJAMARCA", "HUAMACHUCO"],
-  "Punto Blanco":             ["PIURA", "TUMBES"],
-  "Megamarcas":               ["PIURA", "TUMBES"],
-  "Farmivent":                ["PIURA"],
-  "Farmi GAB":                ["PIURA"],
-  "Inmobiliaria Las Cumbres": ["PIURA"],
+export const SEDES = {
+  "PIURA":      ["Alvarez Bohl", "Punto Blanco", "Megamarcas", "Farmivent", "Farmi GAB", "Inmobiliaria Las Cumbres"],
+  "TUMBES":     ["Alvarez Bohl", "Punto Blanco", "Megamarcas"],
+  "CHICLAYO":   ["Alvarez Bohl"],
+  "TRUJILLO":   ["Alvarez Bohl"],
+  "CHIMBOTE":   ["Alvarez Bohl"],
+  "HUAMACHUCO": ["Alvarez Bohl"],
+  "CAJAMARCA":  ["Alvarez Bohl"],
 };
 
 // ═══════════════════════════════════════════════════════════════════
 // CANDIDATOS POR EMPRESA
-// csst        → Comité de Seguridad y Salud en el Trabajo
-// cihsl       → Comité de Intervención Frente al Hostigamiento Sexual
-// foto: ruta desde /public  (ej: "/fotos/CSST/AB/NOMBRE.png")
-// Si no hay foto: foto: null  → muestra círculo con iniciales
+// csst  → Comité de Seguridad y Salud en el Trabajo
+// cihsl → Comité de Intervención Frente al Hostigamiento Sexual
 // ═══════════════════════════════════════════════════════════════════
-
 export const CANDIDATOS_POR_EMPRESA = {
 
-  // ── ALVAREZ BOHL ──────────────────────────────────────────────────
   "Alvarez Bohl": {
     csst: [
       { id:"csst-ab-1", nombre:"Adrianzen Pulache Diego Alonso",  ini:"AD", foto:"/fotos/CSST/AB/ADRIANZEN PULACHE DIEGO ALONSO.png" },
@@ -47,7 +41,6 @@ export const CANDIDATOS_POR_EMPRESA = {
     ],
   },
 
-  // ── PUNTO BLANCO ──────────────────────────────────────────────────
   "Punto Blanco": {
     csst: [
       { id:"csst-pb-1", nombre:"Andrade Leon Marco Antonio",        ini:"AN", foto:"/fotos/CSST/PB/ANDRADE LEON, MARCO ANTONIO.png" },
@@ -58,20 +51,19 @@ export const CANDIDATOS_POR_EMPRESA = {
       { id:"csst-pb-6", nombre:"Mendiola Carvallo Alida Vanessa",   ini:"ME", foto:"/fotos/CSST/PB/MENDIOLA CARVALLO, ALIDA VANESSA.png" },
     ],
     cihsl: [
-      { id:"cihsl-pb-1",  nombre:"Ancajima Urbina Yohana Patricia",       ini:"AN", foto:"/fotos/CIHSL/PB/Ancajima Urbina, Yohana Patricia.png" },
-      { id:"cihsl-pb-2",  nombre:"Andrade Leon Marco Antonio",             ini:"AD", foto:"/fotos/CIHSL/PB/Andrade Leon, Marco Antonio.png" },
-      { id:"cihsl-pb-3",  nombre:"Ato Reusche Luis Eduardo",               ini:"AT", foto:"/fotos/CIHSL/PB/Ato Reusche, Luis Eduardo.png" },
-      { id:"cihsl-pb-4",  nombre:"Atto Valdiviezo Pedro Miguel Alberto",   ini:"AV", foto:"/fotos/CIHSL/PB/Atto Valdiviezo, Pedro Miguel Alberto.png" },
-      { id:"cihsl-pb-5",  nombre:"Benza López Max Alberto",                ini:"BE", foto:"/fotos/CIHSL/PB/Benza López, Max Alberto.png" },
-      { id:"cihsl-pb-6",  nombre:"Gonzales Palacios Gustavo Martín",       ini:"GO", foto:"/fotos/CIHSL/PB/Gonzales Palacios, Gustavo Martín.png" },
-      { id:"cihsl-pb-7",  nombre:"Miranda López Betty Elizabeth",           ini:"MR", foto:"/fotos/CIHSL/PB/Miranda López, Betty Elizabeth.png" },
-      { id:"cihsl-pb-8",  nombre:"Piñin Huertas Magally Elizabeth",        ini:"PI", foto:"/fotos/CIHSL/PB/Piñin Huertas, Magally Elizabeth.png" },
-      { id:"cihsl-pb-9",  nombre:"Ticliahuanca Yajahuanca Ulises Humberto",ini:"TI", foto:"/fotos/CIHSL/PB/Ticliahuanca Yajahuanca, Ulises Humberto.png" },
-      { id:"cihsl-pb-10", nombre:"Urrego Rosales Dorinda",                 ini:"UR", foto:"/fotos/CIHSL/PB/Urrego Rosales, Dorinda.png" },
+      { id:"cihsl-pb-1",  nombre:"Ancajima Urbina Yohana Patricia",        ini:"AN", foto:"/fotos/CIHSL/PB/Ancajima Urbina, Yohana Patricia.png" },
+      { id:"cihsl-pb-2",  nombre:"Andrade Leon Marco Antonio",              ini:"AD", foto:"/fotos/CIHSL/PB/Andrade Leon, Marco Antonio.png" },
+      { id:"cihsl-pb-3",  nombre:"Ato Reusche Luis Eduardo",                ini:"AT", foto:"/fotos/CIHSL/PB/Ato Reusche, Luis Eduardo.png" },
+      { id:"cihsl-pb-4",  nombre:"Atto Valdiviezo Pedro Miguel Alberto",    ini:"AV", foto:"/fotos/CIHSL/PB/Atto Valdiviezo, Pedro Miguel Alberto.png" },
+      { id:"cihsl-pb-5",  nombre:"Benza López Max Alberto",                 ini:"BE", foto:"/fotos/CIHSL/PB/Benza López, Max Alberto.png" },
+      { id:"cihsl-pb-6",  nombre:"Gonzales Palacios Gustavo Martín",        ini:"GO", foto:"/fotos/CIHSL/PB/Gonzales Palacios, Gustavo Martín.png" },
+      { id:"cihsl-pb-7",  nombre:"Miranda López Betty Elizabeth",            ini:"MR", foto:"/fotos/CIHSL/PB/Miranda López, Betty Elizabeth.png" },
+      { id:"cihsl-pb-8",  nombre:"Piñin Huertas Magally Elizabeth",         ini:"PI", foto:"/fotos/CIHSL/PB/Piñin Huertas, Magally Elizabeth.png" },
+      { id:"cihsl-pb-9",  nombre:"Ticliahuanca Yajahuanca Ulises Humberto", ini:"TI", foto:"/fotos/CIHSL/PB/Ticliahuanca Yajahuanca, Ulises Humberto.png" },
+      { id:"cihsl-pb-10", nombre:"Urrego Rosales Dorinda",                  ini:"UR", foto:"/fotos/CIHSL/PB/Urrego Rosales, Dorinda.png" },
     ],
   },
 
-  // ── MEGAMARCAS ────────────────────────────────────────────────────
   "Megamarcas": {
     csst: [
       { id:"csst-mm-1", nombre:"Chicoma Chunga Allinson Alfredo", ini:"CC", foto:"/fotos/CSST/MM/Chicoma Chunga, Allinson Alfredo.png" },
@@ -87,12 +79,11 @@ export const CANDIDATOS_POR_EMPRESA = {
     ],
   },
 
-  // ── FARMIVENT ─────────────────────────────────────────────────────
   "Farmivent": {
     csst: [
-      { id:"csst-fv-1", nombre:"Castillo Paz Karlo Adrian",             ini:"CP", foto:"/fotos/CSST/FV/Castillo Paz, Karlo Adrian.png" },
-      { id:"csst-fv-2", nombre:"Castro Zevallos Ronald Alfredo",        ini:"CZ", foto:"/fotos/CSST/FV/Castro Zevallos, Ronald Alfredo.png" },
-      { id:"csst-fv-3", nombre:"Neyra Yacsahuache Henry",               ini:"NY", foto:"/fotos/CSST/FV/Neyra Yacsahuache, Henry.png" },
+      { id:"csst-fv-1", nombre:"Castillo Paz Karlo Adrian",      ini:"CP", foto:"/fotos/CSST/FV/Castillo Paz, Karlo Adrian.png" },
+      { id:"csst-fv-2", nombre:"Castro Zevallos Ronald Alfredo", ini:"CZ", foto:"/fotos/CSST/FV/Castro Zevallos, Ronald Alfredo.png" },
+      { id:"csst-fv-3", nombre:"Neyra Yacsahuache Henry",        ini:"NY", foto:"/fotos/CSST/FV/Neyra Yacsahuache, Henry.png" },
     ],
     cihsl: [
       { id:"cihsl-fv-1", nombre:"Barrutia Chumacero Jorge Luis", ini:"BC", foto:"/fotos/CIHSL/FV/Barrutia Chumacero Jorge Luis.png" },
@@ -101,19 +92,17 @@ export const CANDIDATOS_POR_EMPRESA = {
     ],
   },
 
-  // ── FARMI GAB ─────────────────────────────────────────────────────
   "Farmi GAB": {
     csst: [
       { id:"csst-fg-1", nombre:"Ocampos Mogollón Liliana Elizabeth", ini:"OM", foto:"/fotos/CSST/FGAB/Ocampos Mogollón, Liliana Elizabeth.png" },
       { id:"csst-fg-2", nombre:"Saldarriaga Facho Camila Lisbeth",   ini:"SF", foto:"/fotos/CSST/FGAB/Saldarriaga Facho, Camila Lisbeth.png" },
     ],
     cihsl: [
-      { id:"cihsl-fg-1", nombre:"Huancas Herrera Yuri Vannesa",          ini:"HH", foto:"/fotos/CIHSL/FGAB/Huancas Herrera, Yuri Vannesa.png" },
-      { id:"cihsl-fg-2", nombre:"Ocampos Mogollón Liliana Elizabeth",     ini:"OM", foto:"/fotos/CIHSL/FGAB/Ocampos Mogollón, Liliana Elizabeth.png" },
+      { id:"cihsl-fg-1", nombre:"Huancas Herrera Yuri Vannesa",      ini:"HH", foto:"/fotos/CIHSL/FGAB/Huancas Herrera, Yuri Vannesa.png" },
+      { id:"cihsl-fg-2", nombre:"Ocampos Mogollón Liliana Elizabeth", ini:"OM", foto:"/fotos/CIHSL/FGAB/Ocampos Mogollón, Liliana Elizabeth.png" },
     ],
   },
 
-  // ── INMOBILIARIA LAS CUMBRES ──────────────────────────────────────
   "Inmobiliaria Las Cumbres": {
     csst: [
       { id:"csst-ilc-1", nombre:"Maza Cueva Fiorella Anahí",    ini:"MZ", foto:"/fotos/CSST/ILC/Maza Cueva Fiorella Anahí.png" },
@@ -126,7 +115,9 @@ export const CANDIDATOS_POR_EMPRESA = {
   },
 };
 
-// ── HELPERS ───────────────────────────────────────────────────────────────────
+// Candidato voto en blanco (especial)
+export const VOTO_EN_BLANCO = { id:"blanco", nombre:"Voto en Blanco", ini:"VB", foto:null, esBlanco:true };
+
 export const PALETA = ["#2563EB","#7C3AED","#DB2777","#059669","#D97706","#DC2626","#0891B2","#65A30D","#9333EA","#0284C7"];
 
 export function colorAvatar(str) {
@@ -136,10 +127,12 @@ export function colorAvatar(str) {
 }
 
 export function getNombreById(id) {
+  if (!id) return '—';
+  if (id === 'blanco') return 'Voto en Blanco';
   for (const emp of Object.values(CANDIDATOS_POR_EMPRESA)) {
     const all = [...(emp.csst||[]), ...(emp.cihsl||[])];
     const found = all.find(c => c.id === id);
     if (found) return found.nombre;
   }
-  return id || '—';
+  return id;
 }
