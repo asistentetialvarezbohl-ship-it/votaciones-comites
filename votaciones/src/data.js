@@ -90,9 +90,9 @@ export const CANDIDATOS_POR_EMPRESA = {
   // ── FARMIVENT ─────────────────────────────────────────────────────
   "Farmivent": {
     csst: [
-      { id:"csst-fv-1", nombre:"Castillo Paz Karlo Adrian",      ini:"CP", foto:"/fotos/CSST/FV/Castillo Paz, Karlo Adrian.png" },
-      { id:"csst-fv-2", nombre:"Neyra Yacsahuache Henry", ini:"CZ", foto:"/fotos/CSST/FV/Castro Zevallos, Ronald Alfredo.png" },
-      { id:"csst-fv-3", nombre:"Castro Zevallos Ronald Alfredo",        ini:"NY", foto:"/fotos/CSST/FV/Neyra Yacsahuache, Henry.png" },
+      { id:"csst-fv-1", nombre:"Castillo Paz Karlo Adrian",             ini:"CP", foto:"/fotos/CSST/FV/Castillo Paz, Karlo Adrian.png" },
+      { id:"csst-fv-2", nombre:"Neyra Yacsahuache Henry",               ini:"NY", foto:"/fotos/CSST/FV/Castro Zevallos, Ronald Alfredo.png" },
+      { id:"csst-fv-3", nombre:"Castro Zevallos Ronald Alfredo",        ini:"CZ", foto:"/fotos/CSST/FV/Neyra Yacsahuache, Henry.png" },
     ],
     cihsl: [
       { id:"cihsl-fv-1", nombre:"Barrutia Chumacero Jorge Luis", ini:"BC", foto:"/fotos/CIHSL/FV/Barrutia Chumacero Jorge Luis.png" },
