@@ -341,15 +341,18 @@ function AdminPanel({ onClose }) {
 // ═══════════════════════════════════════════════════════════════════════════════
 export default function App() {
   // Sesión de sede (encargado)
-  const [sedeSeleccionada, setSedeSeleccionada] = useState('');  // select UI solamente
-  const [sedeActiva, setSedeActiva]             = useState(null);  // activa SOLO tras validar
-  const [nombreEnc, setNombreEnc]               = useState('');
-  const [dniEnc, setDniEnc]                     = useState('');
-  const [errorEnc, setErrorEnc]                 = useState('');
-  const [loadingEnc, setLoadingEnc]             = useState(false);
+  const [sedeSeleccionada, setSedeSeleccionada]       = useState('');
+  const [empresaSeleccionada, setEmpresaSeleccionada] = useState('');
+  const [sedeActiva, setSedeActiva]                   = useState(null); // activa SOLO tras validar
+  const [empresaActiva, setEmpresaActiva]             = useState(null);
+  const [nombreEnc, setNombreEnc]                     = useState('');
+  const [dniEnc, setDniEnc]                           = useState('');
+  const [claveEnc, setClaveEnc]                       = useState('');
+  const [errorEnc, setErrorEnc]                       = useState('');
+  const [loadingEnc, setLoadingEnc]                   = useState(false);
 
   // Votación
-  const [paso, setPaso]         = useState(0); // 0=elegir empresa, 1=votar, 2=confirmado
+  const [paso, setPaso]         = useState(0); // 0=confirmación encargado, 1=votar, 2=confirmado
   const [empresa, setEmpresa]   = useState('');
   const [votoCsst, setVotoCsst] = useState(null);
   const [votoCihsl, setVotoCihsl] = useState(null);
@@ -362,28 +365,29 @@ export default function App() {
   const [adminInput, setAdminInput]         = useState('');
   const [errorAdmin, setErrorAdmin]         = useState('');
 
-  const empresasEnSede = sedeActiva ? SEDES[sedeActiva] || [] : [];
-  const candidatosEmpresa = empresa ? CANDIDATOS_POR_EMPRESA[empresa] : null;
+  const empresasEnSede = sedeSeleccionada ? SEDES[sedeSeleccionada] || [] : [];
+  const candidatosEmpresa = empresaActiva ? CANDIDATOS_POR_EMPRESA[empresaActiva] : null;
 
   const inp = { width:'100%', background:'rgba(255,255,255,0.05)', border:'1px solid rgba(255,255,255,0.11)', borderRadius:12, padding:'13px 16px', color:'#f8fafc', fontSize:15, fontFamily:"'DM Sans',sans-serif", transition:'all 0.2s' };
 
   // ── Encargado abre sesión ──
   async function handleAbrirSesion() {
     const nom = nombreEnc.trim(), dniT = dniEnc.trim();
-    if (!nom || !dniT || !sedeSeleccionada) { setErrorEnc('Completa todos los campos.'); return; }
+    if (!nom || !dniT || !sedeSeleccionada || !empresaSeleccionada || !claveEnc) {
+      setErrorEnc('Completa todos los campos.'); return;
+    }
     if (!/^\d{8}$/.test(dniT)) { setErrorEnc('El DNI debe tener 8 dígitos.'); return; }
+    if (claveEnc !== 'votaciones2026') { setErrorEnc('Clave incorrecta. Verifica con el administrador.'); return; }
     setLoadingEnc(true);
-    const { error: err } = await supabase.from('encargados').insert([{ nombre: nom, dni: dniT, sede: sedeSeleccionada }]);
+    const { error: err } = await supabase.from('encargados').insert([{
+      nombre: nom, dni: dniT, sede: sedeSeleccionada, empresa: empresaSeleccionada,
+    }]);
     if (err) { setErrorEnc('Error al registrar: ' + err.message); setLoadingEnc(false); return; }
     setLoadingEnc(false);
-    setSedeActiva(sedeSeleccionada); // AHORA sí activa la sesión
-    setPaso(0);
-  }
-
-  // ── Confirmar empresa y pasar a votar ──
-  function handleElegirEmpresa() {
-    if (!empresa) { setError('Selecciona tu empresa.'); return; }
-    setError(''); setPaso(1);
+    setSedeActiva(sedeSeleccionada);
+    setEmpresaActiva(empresaSeleccionada);
+    setEmpresa(empresaSeleccionada); // empresa fijada para todos los votantes
+    setPaso(0); // ir a pantalla de confirmación para encargado
   }
 
   // ── Registrar voto ──
@@ -391,7 +395,7 @@ export default function App() {
     if (!votoCsst || !votoCihsl) { setError('Debes seleccionar una opción en cada comité.'); return; }
     setLoading(true);
     const { error: err } = await supabase.from('votos').insert([{
-      sede: sedeActiva, empresa, csst: votoCsst, cihsl: votoCihsl,
+      sede: sedeActiva, empresa: empresaActiva, csst: votoCsst, cihsl: votoCihsl,
     }]);
     if (err) { setError('Error al guardar: ' + err.message); setLoading(false); return; }
     setLoading(false); setPaso(2);
@@ -399,7 +403,7 @@ export default function App() {
 
   // ── Siguiente votante ──
   function siguienteVotante() {
-    setEmpresa(''); setVotoCsst(null); setVotoCihsl(null); setError(''); setPaso(0);
+    setVotoCsst(null); setVotoCihsl(null); setError(''); setPaso(1); // empresa fija, ir directo a votar
   }
 
   function handleAdminLogin() {
@@ -420,7 +424,7 @@ export default function App() {
             🗳️ Sistema Electoral
           </h1>
           {sedeActiva && (
-            <p style={{ margin:0, fontSize:11, color:'#60a5fa', fontWeight:600 }}>📍 Sede: {sedeActiva}</p>
+            <p style={{ margin:0, fontSize:11, color:'#60a5fa', fontWeight:600 }}>📍 {sedeActiva} · {empresaActiva}</p>
           )}
         </div>
         <button onClick={()=>{ setShowAdminLogin(true); setErrorAdmin(''); setAdminInput(''); }} style={{ background:'rgba(255,255,255,0.03)', border:'1px solid rgba(255,255,255,0.08)', color:'#475569', borderRadius:8, padding:'6px 13px', cursor:'pointer', fontSize:11.5, fontFamily:"'DM Sans',sans-serif" }}>
@@ -436,24 +440,47 @@ export default function App() {
             <div style={{ textAlign:'center', marginBottom:34 }}>
               <div style={{ display:'inline-flex', alignItems:'center', justifyContent:'center', width:78, height:78, borderRadius:'50%', background:'linear-gradient(135deg,#1e3a8a,#312e81)', fontSize:34, marginBottom:14, boxShadow:'0 10px 42px #1e3a8a50' }}>🔑</div>
               <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:24, marginBottom:8 }}>Apertura de Votación</h2>
-              <p style={{ color:'#475569', fontSize:14 }}>Encargado: ingresa tus datos para activar la votación en tu sede</p>
+              <p style={{ color:'#475569', fontSize:14 }}>Encargado: configura la sesión de votación</p>
             </div>
             <div style={{ background:'rgba(255,255,255,0.02)', border:'1px solid rgba(255,255,255,0.07)', borderRadius:24, padding:30, display:'flex', flexDirection:'column', gap:17 }}>
+              
+              {/* Sede */}
               <div>
                 <label style={{ fontSize:11.5, color:'#475569', display:'block', marginBottom:7, fontWeight:700, letterSpacing:0.4 }}>SEDE</label>
-                <select style={{ ...inp, cursor:'pointer' }} value={sedeSeleccionada} onChange={e => { setSedeSeleccionada(e.target.value); setErrorEnc(''); }}>
+                <select style={{ ...inp, cursor:'pointer' }} value={sedeSeleccionada} onChange={e => { setSedeSeleccionada(e.target.value); setEmpresaSeleccionada(''); setErrorEnc(''); }}>
                   <option value="">Selecciona la sede</option>
                   {Object.keys(SEDES).map(s => <option key={s} value={s}>{s}</option>)}
                 </select>
               </div>
-              <div>
-                <label style={{ fontSize:11.5, color:'#475569', display:'block', marginBottom:7, fontWeight:700, letterSpacing:0.4 }}>TU NOMBRE COMPLETO</label>
-                <input style={inp} placeholder="Nombre del encargado" value={nombreEnc} onChange={e => setNombreEnc(e.target.value)} autoComplete="off"/>
+
+              {/* Empresa — solo aparece si hay sede */}
+              {sedeSeleccionada && (
+                <div className="fade-up">
+                  <label style={{ fontSize:11.5, color:'#475569', display:'block', marginBottom:7, fontWeight:700, letterSpacing:0.4 }}>EMPRESA</label>
+                  <select style={{ ...inp, cursor:'pointer' }} value={empresaSeleccionada} onChange={e => { setEmpresaSeleccionada(e.target.value); setErrorEnc(''); }}>
+                    <option value="">Selecciona la empresa</option>
+                    {empresasEnSede.map(emp => <option key={emp} value={emp}>{emp}</option>)}
+                  </select>
+                </div>
+              )}
+
+              {/* Datos del encargado */}
+              <div style={{ borderTop:'1px solid rgba(255,255,255,0.06)', paddingTop:16, display:'flex', flexDirection:'column', gap:14 }}>
+                <p style={{ margin:0, fontSize:11.5, color:'#334155', fontWeight:600, letterSpacing:0.3 }}>DATOS DEL ENCARGADO</p>
+                <div>
+                  <label style={{ fontSize:11.5, color:'#475569', display:'block', marginBottom:7, fontWeight:700, letterSpacing:0.4 }}>NOMBRE COMPLETO</label>
+                  <input style={inp} placeholder="Nombre del encargado" value={nombreEnc} onChange={e => setNombreEnc(e.target.value)} autoComplete="off"/>
+                </div>
+                <div>
+                  <label style={{ fontSize:11.5, color:'#475569', display:'block', marginBottom:7, fontWeight:700, letterSpacing:0.4 }}>DNI</label>
+                  <input style={inp} placeholder="8 dígitos" inputMode="numeric" value={dniEnc} onChange={e => setDniEnc(e.target.value.replace(/\D/g,'').slice(0,8))}/>
+                </div>
+                <div>
+                  <label style={{ fontSize:11.5, color:'#475569', display:'block', marginBottom:7, fontWeight:700, letterSpacing:0.4 }}>CLAVE DE HABILITACIÓN</label>
+                  <input type="password" style={inp} placeholder="Clave del encargado" value={claveEnc} onChange={e => setClaveEnc(e.target.value)} onKeyDown={e => e.key==='Enter' && handleAbrirSesion()}/>
+                </div>
               </div>
-              <div>
-                <label style={{ fontSize:11.5, color:'#475569', display:'block', marginBottom:7, fontWeight:700, letterSpacing:0.4 }}>TU DNI</label>
-                <input style={inp} placeholder="8 dígitos" inputMode="numeric" value={dniEnc} onChange={e => setDniEnc(e.target.value.replace(/\D/g,'').slice(0,8))}/>
-              </div>
+
               {errorEnc && <div style={{ background:'#ef444413', border:'1px solid #ef444432', borderRadius:10, padding:'10px 14px', color:'#fca5a5', fontSize:13 }}>⚠️ {errorEnc}</div>}
               <button onClick={handleAbrirSesion} disabled={loadingEnc} style={{ background:'linear-gradient(135deg,#1e3a8a,#312e81)', border:'none', borderRadius:13, color:'#fff', padding:'14px 0', fontSize:15, fontWeight:700, cursor:loadingEnc?'wait':'pointer', opacity:loadingEnc?0.7:1, fontFamily:"'DM Sans',sans-serif", boxShadow:'0 6px 26px #1e3a8a40' }}>
                 {loadingEnc ? '⏳ Activando...' : '🔓 Activar votación'}
@@ -462,51 +489,51 @@ export default function App() {
           </div>
         )}
 
-        {/* ══ PASO 0: Votante elige empresa ══ */}
+        {/* ══ PASO 0: Confirmación para encargado antes de iniciar votación ══ */}
         {sedeActiva && paso === 0 && (
           <div className="fade-up">
-            <div style={{ textAlign:'center', marginBottom:30 }}>
-              <div style={{ display:'inline-flex', alignItems:'center', justifyContent:'center', width:72, height:72, borderRadius:'50%', background:'linear-gradient(135deg,#1e3a8a,#312e81)', fontSize:30, marginBottom:12, boxShadow:'0 10px 42px #1e3a8a50' }}>🗳️</div>
-              <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:22, marginBottom:6 }}>¿En qué empresa trabajas?</h2>
-              <p style={{ color:'#475569', fontSize:13 }}>Sede: <strong style={{ color:'#60a5fa' }}>{sedeActiva}</strong></p>
+            <div style={{ textAlign:'center', marginBottom:28 }}>
+              <div style={{ display:'inline-flex', alignItems:'center', justifyContent:'center', width:72, height:72, borderRadius:'50%', background:'linear-gradient(135deg,#14532d,#166534)', fontSize:30, marginBottom:12, boxShadow:'0 10px 42px #16653450' }}>✅</div>
+              <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:22, marginBottom:6 }}>Sesión activada</h2>
+              <p style={{ color:'#475569', fontSize:13 }}>Verifica los datos antes de iniciar la votación</p>
             </div>
-            <div style={{ background:'rgba(255,255,255,0.02)', border:'1px solid rgba(255,255,255,0.07)', borderRadius:24, padding:28, display:'flex', flexDirection:'column', gap:16 }}>
-              <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
-                {empresasEnSede.map(emp => (
-                  <div key={emp} onClick={() => setEmpresa(emp)}
-                    style={{
-                      background: empresa===emp ? 'linear-gradient(135deg,#1e3a8a,#312e81)' : 'rgba(255,255,255,0.04)',
-                      border: `2px solid ${empresa===emp ? '#60a5fa' : 'rgba(255,255,255,0.08)'}`,
-                      borderRadius:14, padding:'16px 20px', cursor:'pointer', transition:'all 0.2s',
-                      display:'flex', alignItems:'center', gap:14,
-                      boxShadow: empresa===emp ? '0 6px 24px #1e3a8a44' : 'none',
-                    }}
-                  >
-                    <div style={{ width:10, height:10, borderRadius:'50%', background: empresa===emp ? '#60a5fa' : 'rgba(255,255,255,0.2)', flexShrink:0 }}/>
-                    <span style={{ fontWeight:600, fontSize:15, color: empresa===emp ? '#f8fafc' : '#94a3b8' }}>{emp}</span>
-                    {empresa===emp && <span style={{ marginLeft:'auto', fontSize:18 }}>✓</span>}
-                  </div>
-                ))}
+
+            {/* Datos de la sesión - bien visibles */}
+            <div style={{ background:'rgba(255,255,255,0.03)', border:'2px solid rgba(96,165,250,0.3)', borderRadius:20, padding:24, marginBottom:20 }}>
+              <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:16 }}>
+                <div style={{ textAlign:'center', background:'rgba(96,165,250,0.08)', border:'1px solid rgba(96,165,250,0.2)', borderRadius:14, padding:'18px 12px' }}>
+                  <p style={{ margin:0, fontSize:11, color:'#60a5fa', fontWeight:700, letterSpacing:0.5, marginBottom:6 }}>📍 SEDE</p>
+                  <p style={{ margin:0, fontSize:22, fontWeight:800, color:'#f8fafc', fontFamily:"'Playfair Display',serif" }}>{sedeActiva}</p>
+                </div>
+                <div style={{ textAlign:'center', background:'rgba(167,139,250,0.08)', border:'1px solid rgba(167,139,250,0.2)', borderRadius:14, padding:'18px 12px' }}>
+                  <p style={{ margin:0, fontSize:11, color:'#a78bfa', fontWeight:700, letterSpacing:0.5, marginBottom:6 }}>🏢 EMPRESA</p>
+                  <p style={{ margin:0, fontSize:16, fontWeight:800, color:'#f8fafc', fontFamily:"'Playfair Display',serif", lineHeight:1.3 }}>{empresaActiva}</p>
+                </div>
               </div>
-              {error && <div style={{ background:'#ef444413', border:'1px solid #ef444432', borderRadius:10, padding:'10px 14px', color:'#fca5a5', fontSize:13 }}>⚠️ {error}</div>}
-              <button onClick={handleElegirEmpresa} style={{ background: empresa ? 'linear-gradient(135deg,#1e3a8a,#312e81)' : 'rgba(255,255,255,0.04)', border:'none', borderRadius:13, color: empresa ? '#fff' : '#334155', padding:'14px 0', fontSize:15, fontWeight:700, cursor: empresa ? 'pointer' : 'not-allowed', fontFamily:"'DM Sans',sans-serif", boxShadow: empresa ? '0 6px 26px #1e3a8a40' : 'none' }}>
-                Continuar →
-              </button>
+              <p style={{ margin:'16px 0 0', textAlign:'center', fontSize:12, color:'#334155' }}>
+                ¿Los datos son correctos? Confirma para que los trabajadores puedan votar.
+              </p>
             </div>
+
+            <button onClick={() => setPaso(1)} style={{ width:'100%', background:'linear-gradient(135deg,#1e3a8a,#312e81)', border:'none', borderRadius:13, color:'#fff', padding:'15px 0', fontSize:16, fontWeight:700, cursor:'pointer', fontFamily:"'DM Sans',sans-serif", boxShadow:'0 6px 26px #1e3a8a40' }}>
+              🗳️ Iniciar votación
+            </button>
           </div>
         )}
 
         {/* ══ PASO 1: Votar ══ */}
         {sedeActiva && paso === 1 && candidatosEmpresa && (
           <div className="fade-up">
-            <div style={{ background:'rgba(255,255,255,0.025)', border:'1px solid rgba(255,255,255,0.07)', borderRadius:14, padding:'12px 18px', marginBottom:22, display:'flex', justifyContent:'space-between', alignItems:'center', flexWrap:'wrap', gap:8 }}>
-              <div>
-                <p style={{ margin:0, fontSize:11, color:'#334155' }}>Votación anónima</p>
-                <p style={{ margin:'2px 0 0', fontWeight:600, color:'#94a3b8', fontSize:13 }}>{empresa} · Sede {sedeActiva}</p>
+            {/* Info sede y empresa — visible para todos los votantes */}
+            <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:10, marginBottom:22 }}>
+              <div style={{ textAlign:'center', background:'rgba(96,165,250,0.07)', border:'1px solid rgba(96,165,250,0.2)', borderRadius:14, padding:'14px 10px' }}>
+                <p style={{ margin:0, fontSize:10, color:'#60a5fa', fontWeight:700, letterSpacing:0.5, marginBottom:4 }}>📍 SEDE</p>
+                <p style={{ margin:0, fontSize:18, fontWeight:800, color:'#f8fafc', fontFamily:"'Playfair Display',serif" }}>{sedeActiva}</p>
               </div>
-              <button onClick={() => { setEmpresa(''); setVotoCsst(null); setVotoCihsl(null); setError(''); setPaso(0); }} style={{ background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.08)', color:'#475569', borderRadius:8, padding:'5px 12px', cursor:'pointer', fontSize:12, fontFamily:"'DM Sans',sans-serif" }}>
-                ← Cambiar empresa
-              </button>
+              <div style={{ textAlign:'center', background:'rgba(167,139,250,0.07)', border:'1px solid rgba(167,139,250,0.2)', borderRadius:14, padding:'14px 10px' }}>
+                <p style={{ margin:0, fontSize:10, color:'#a78bfa', fontWeight:700, letterSpacing:0.5, marginBottom:4 }}>🏢 EMPRESA</p>
+                <p style={{ margin:0, fontSize:14, fontWeight:800, color:'#f8fafc', fontFamily:"'Playfair Display',serif", lineHeight:1.3 }}>{empresaActiva}</p>
+              </div>
             </div>
 
             <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:20, marginBottom:20, color:'#e2e8f0' }}>Emite tu voto</h2>
@@ -535,7 +562,7 @@ export default function App() {
             <div style={{ width:112, height:112, borderRadius:'50%', background:'linear-gradient(135deg,#14532d,#166534)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:50, margin:'0 auto 22px', boxShadow:'0 12px 52px #16653460' }}>✅</div>
             <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:28, marginBottom:10 }}>¡Voto registrado!</h2>
             <p style={{ color:'#64748b', fontSize:15, marginBottom:6 }}>Tu voto ha sido guardado de forma anónima.</p>
-            <p style={{ color:'#334155', fontSize:13, marginBottom:42 }}>Sede {sedeActiva} · {empresa}</p>
+            <p style={{ color:'#334155', fontSize:13, marginBottom:42 }}>Sede {sedeActiva} · {empresaActiva}</p>
             <button onClick={siguienteVotante} style={{ background:'linear-gradient(135deg,#1e3a8a,#312e81)', border:'none', color:'#fff', borderRadius:13, padding:'13px 32px', cursor:'pointer', fontSize:15, fontWeight:700, fontFamily:"'DM Sans',sans-serif", boxShadow:'0 6px 26px #1e3a8a40' }}>
               👤 Siguiente votante
             </button>
