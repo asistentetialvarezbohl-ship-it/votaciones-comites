@@ -71,9 +71,16 @@ function CandidatoCard({ c, seleccionado, onClick, disabled }) {
         <div style={{ position:'absolute', top:-12, right:-12, background: esBlanco ? '#94a3b8' : '#22c55e', borderRadius:'50%', width:28, height:28, display:'flex', alignItems:'center', justifyContent:'center', fontSize:15, fontWeight:800, color:'#fff', boxShadow:'0 2px 10px rgba(0,0,0,0.3)' }}>✓</div>
       )}
       <CandidatoFoto candidato={c} size={esBlanco ? 60 : 68} />
-      <p style={{ margin:0, fontWeight: esBlanco ? 600 : 700, fontSize: esBlanco ? 12 : 11.5, color: esBlanco ? '#94a3b8' : '#f1f5f9', lineHeight:1.35, textAlign:'center', fontStyle: esBlanco ? 'italic' : 'normal' }}>
-        {c.nombre}
-      </p>
+      <div style={{ textAlign:'center' }}>
+        <p style={{ margin:0, fontWeight: esBlanco ? 600 : 700, fontSize: esBlanco ? 12 : 11.5, color: esBlanco ? '#94a3b8' : '#f1f5f9', lineHeight:1.35, fontStyle: esBlanco ? 'italic' : 'normal' }}>
+          {c.nombre}
+        </p>
+        {c.cargo && (
+          <span style={{ display:'inline-block', marginTop:5, fontSize:10, color:'#64748b', background:'rgba(255,255,255,0.06)', padding:'2px 8px', borderRadius:20, lineHeight:1.4 }}>
+            {c.cargo}
+          </span>
+        )}
+      </div>
     </div>
   );
 }
@@ -84,8 +91,8 @@ function BloqueComite({ titulo, icono, color, candidatos, votoActual, onVotar, b
   return (
     <div style={{ background:'rgba(255,255,255,0.022)', border:`1.5px solid ${color}28`, borderRadius:22, padding:'22px 18px', marginBottom:22 }}>
       <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:20 }}>
-        <span style={{ fontSize:20 }}>{icono}</span>
-        <h3 style={{ margin:0, color, fontFamily:"'Playfair Display',serif", fontSize:15, lineHeight:1.3 }}>{titulo}</h3>
+        <span style={{ fontSize:26 }}>{icono}</span>
+        <h3 style={{ margin:0, color, fontFamily:"'Playfair Display',serif", fontSize:19, lineHeight:1.3, fontWeight:800, textShadow:`0 2px 12px ${color}44` }}>{titulo}</h3>
         {bloqueado && <span style={{ marginLeft:'auto', background:'#22c55e18', color:'#22c55e', padding:'3px 12px', borderRadius:20, fontSize:11, fontWeight:700, whiteSpace:'nowrap' }}>✓ Registrado</span>}
       </div>
       <div style={{ display:'flex', flexWrap:'wrap', gap:10, justifyContent:'center' }}>
