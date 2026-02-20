@@ -7,7 +7,7 @@
 export const EMPRESAS = {
   "Alvarez Bohl":             ["PIURA", "TUMBES", "TRUJILLO", "CHIMBOTE", "CHICLAYO", "CAJAMARCA", "HUAMACHUCO"],
   "Punto Blanco":             ["PIURA", "TUMBES"],
-  "Megamarcas":               ["PIURA"],
+  "Megamarcas":               ["PIURA", "TUMBES"],
   "Farmivent":                ["PIURA"],
   "Farmi GAB":                ["PIURA"],
   "Inmobiliaria Las Cumbres": ["PIURA"],
