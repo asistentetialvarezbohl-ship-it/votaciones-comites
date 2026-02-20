@@ -515,9 +515,18 @@ export default function App() {
               </p>
             </div>
 
-            <button onClick={() => setPaso(1)} style={{ width:'100%', background:'linear-gradient(135deg,#1e3a8a,#312e81)', border:'none', borderRadius:13, color:'#fff', padding:'15px 0', fontSize:16, fontWeight:700, cursor:'pointer', fontFamily:"'DM Sans',sans-serif", boxShadow:'0 6px 26px #1e3a8a40' }}>
-              🗳️ Iniciar votación
-            </button>
+            <div style={{ display:'flex', gap:10 }}>
+              <button onClick={() => {
+                setSedeActiva(null); setEmpresaActiva(null); setEmpresa('');
+                setSedeSeleccionada(sedeActiva); setEmpresaSeleccionada(empresaActiva);
+                setNombreEnc(''); setDniEnc(''); setClaveEnc(''); setErrorEnc('');
+              }} style={{ flex:'0 0 auto', background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.1)', borderRadius:13, color:'#475569', padding:'15px 20px', fontSize:15, cursor:'pointer', fontFamily:"'DM Sans',sans-serif" }}>
+                ← Corregir
+              </button>
+              <button onClick={() => setPaso(1)} style={{ flex:1, background:'linear-gradient(135deg,#1e3a8a,#312e81)', border:'none', borderRadius:13, color:'#fff', padding:'15px 0', fontSize:16, fontWeight:700, cursor:'pointer', fontFamily:"'DM Sans',sans-serif", boxShadow:'0 6px 26px #1e3a8a40' }}>
+                🗳️ Iniciar votación
+              </button>
+            </div>
           </div>
         )}
 
